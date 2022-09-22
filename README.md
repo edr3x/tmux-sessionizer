@@ -55,6 +55,7 @@ bindkey -s ^f "tmux-sessionizer\n"
 ```bash
 bind-key -r f run-shell "tmux neww ~/.local/scripts/tmux-sessionizer"
 ```
+- i haven't done other shortcuts, if you want you can see [here](https://github.com/ThePrimeagen/.dotfiles/blob/master/tmux/.tmux.conf), for the example on how it is done.
 
 > This will create a new tmux session on your next desired project directory
 
@@ -71,3 +72,7 @@ chmod +x ~/.local/scripts/tmuxsessionizer
 - Press `ctrl+f` to open the fzf finder
 - type the name of project you want to work on and press enter
 - Now you will be on the project directory on tmux session
+
+> Note:
+> 
+> you can see prime's [video](https://youtu.be/hJzqEAf2U4I) on this
