@@ -62,7 +62,7 @@ bind-key -r f run-shell "tmux neww ~/.local/scripts/tmux-sessionizer"
 ## Finally run following command to give permission for `tmux-sessionizer` script to run
 
 ```bash
-chmod +x ~/.local/scripts/tmuxsessionizer
+chmod +x ~/.local/scripts/tmux-sessionizer
 ```
 
 ## Now restart your shell and enjoy the blazing fast workflow
