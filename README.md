@@ -36,7 +36,7 @@ fi
 tmux switch-client -t $selected_name
 ```
 
-- Here change the find paths on line no. 6 to your corresponding paths of projects on which you want to work on
+- Here change the find paths on line no. 6 to your corresponding paths to projects folder on which you want to work on
 
 ## Add the script folder on your `.bashrc` or `.zshrc`
 
@@ -59,7 +59,7 @@ bind-key -r f run-shell "tmux neww ~/.local/scripts/tmux-sessionizer"
 
 > This will create a new tmux session on your next desired project directory
 
-## Finally run following command to give permission for `tmux-sessionizer` script to run
+## Finally run following command on your terminal to give permission for `tmux-sessionizer` script to run
 
 ```bash
 chmod +x ~/.local/scripts/tmux-sessionizer
