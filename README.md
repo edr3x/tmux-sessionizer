@@ -10,11 +10,32 @@ tmux-sessionizer is a tmux script that makes your workflow BLAZINGLY FAST writte
 
 ```bash
 #!/usr/bin/env bash
+switch_to() {
+    if [[ -z $TMUX ]]; then
+        tmux attach-session -t $1
+    else
+        tmux switch-client -t $1
+    fi
+}
+
+has_session() {
+    tmux list-sessions | grep -q "^$1:"
+}
+
+hydrate() {
+    if [ -f $2/.tmux-sessionizer ]; then
+        tmux send-keys -t $1 "source $2/.tmux-sessionizer" c-M
+    elif [ -f $HOME/.tmux-sessionizer ]; then
+        tmux send-keys -t $1 "source $HOME/.tmux-sessionizer" c-M
+    fi
+}
 
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/projects ~/tests -mindepth 1 -maxdepth 1 -type d | fzf)
+    # If someone wants to make this extensible, i'll accept
+    # PR
+    selected=$(find ~/ ~/personal ~/personal/dev/env/.config -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -26,18 +47,16 @@ tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     tmux new-session -s $selected_name -c $selected
+    hydrate $selected_name $selected
     exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
+if ! has_session $selected_name; then
     tmux new-session -ds $selected_name -c $selected
+    hydrate $selected_name $selected
 fi
 
-if [[ -z $TMUX ]]; then
-    tmux attach -t $selected_name
-else
-    tmux switch-client -t $selected_name
-fi
+switch_to $selected_name
 ```
 
 - Here change the find paths on line no. 6 to your corresponding paths to projects folder on which you want to work on
@@ -56,10 +75,14 @@ set PATH "$PATH":"$HOME/.local/scripts/"
 
 ## Add the macro `ctrl+f` on your `.bashrc` or `.zshrc`
 
+### Bash use
+```bash
+bind '"\C-f": "tmux-sessionizer\n"'
+```
+### Zsh use
 ```bash
 bindkey -s ^f "tmux-sessionizer\n"
 ```
-
 ### For Fish use this
 
 ```sh
@@ -99,3 +122,4 @@ chmod +x ~/.local/scripts/tmux-sessionizer
 > Note:
 >
 > you can see prime's [video](https://youtu.be/hJzqEAf2U4I) on this to understand in detail
+
