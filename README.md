@@ -42,27 +42,25 @@ fi
 
 - Here change the find paths on line no. 6 to your corresponding paths to projects folder on which you want to work on
 
-## Add the script folder on your `.bashrc` or `.zshrc`
+## Add the script folder to your path and add the `ctrl+f` macro as a key binding
 
+### For Bash put this in `.bashrc`
 ```bash
 PATH="$PATH":"$HOME/.local/scripts/"
+bind '"\C-f":"tmux-sessionizer\n"'
 ```
 
-### For fish put this on `config.fish`
-
-```sh
-set PATH "$PATH":"$HOME/.local/scripts/"
-```
-
-## Add the macro `ctrl+f` on your `.bashrc` or `.zshrc`
+### For Z shell put this in `.zshrc`
 
 ```bash
 bindkey -s ^f "tmux-sessionizer\n"
 ```
 
-### For Fish use this
+
+### For Fish put this in `config.fish`
 
 ```sh
+set PATH "$PATH":"$HOME/.local/scripts/"
 bind \cf "tmux-sessionizer"
 ```
 
